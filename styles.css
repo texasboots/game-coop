@@ -86,9 +86,10 @@ body {
   align-items: center;
 }
 
-/* The mascot: a cool chicken in sunglasses between GAME and COOP. It leans toward the cursor. */
+/* The mascot: a rooster silhouette in sunglasses between GAME and COOP. It leans toward the cursor. */
 .mascot {
   flex: none;
+  color: var(--text);
   width: auto;
   height: 1.24em;
   margin: -.2em 0 -.04em;
@@ -99,12 +100,12 @@ body {
   cursor: pointer;
 }
 
-.mascot .chick {
-  transform-box: fill-box;
+.mascot .chick, .mascot > path, .mascot > g {
+  transform-box: view-box;
   transform-origin: 50% 100%;
 }
 
-.mascot:hover .chick { animation: strut .5s ease-in-out 2; }
+.mascot:hover { animation: strut .5s ease-in-out 2; }
 
 .mascot .glint {
   transform-box: view-box;
@@ -118,8 +119,8 @@ body {
 }
 
 @keyframes glint {
-  0%, 70% { transform: translateX(-40px); }
-  85%, 100% { transform: translateX(90px); }
+  0%, 70% { transform: translateX(-14px); }
+  85%, 100% { transform: translateX(22px); }
 }
 
 .eye {
