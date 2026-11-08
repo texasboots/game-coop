@@ -96,6 +96,7 @@ const GAMES = [
     blurb: "Six sneaky dogs steal treats, toys and bones and dodge the dogcatcher.",
     cover: "covers/doom-dogs.png",
     color: "#ef3f3a",
+    play: "play/doom-dogs/index.html",
     download: null,
   },
   {
