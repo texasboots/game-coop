@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Game Coop loading screen: the page shell for every game's Godot Web export
+		     (export_presets.cfg -> html/custom_html_shell). Based on Godot 4.7's default godot.html. -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>$GODOT_PROJECT_NAME · Game Coop</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@500;600&display=swap">
+		<style>
+:root {
+	--bg: #0f0e0b;
+	--panel: #1a1814;
+	--line: #2e2a23;
+	--text: #f6f0e1;
+	--muted: #a39a87;
+	--yolk: #ffc629;
+	--ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	color: var(--text);
+	background-color: #000;
+	overflow: hidden;
+	touch-action: none;
+	font-family: "Instrument Sans", system-ui, -apple-system, sans-serif;
+}
+
+#canvas {
+	display: block;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+/* ---------- The loading screen ---------- */
+
+#status {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(14px, 3vh, 26px);
+	padding: 16px;
+	background:
+		radial-gradient(60vmax 40vmax at 50% 0%, rgba(255, 198, 41, .14), transparent 70%),
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66v34' fill='none' stroke='%23f6f0e1' stroke-opacity='.05' stroke-width='1'/%3E%3C/svg%3E"),
+		var(--bg);
+	visibility: hidden;
+	transition: opacity .45s ease;
+}
+
+#status.done {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.wordmark {
+	display: flex;
+	align-items: center;
+	gap: .22em;
+	margin: 0;
+	font-family: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+	font-weight: 800;
+	font-size: clamp(22px, 5vh, 40px);
+	line-height: 1;
+	letter-spacing: -.045em;
+}
+
+.coop { display: inline-flex; align-items: center; }
+
+.eye {
+	position: relative;
+	display: inline-block;
+	width: .74em;
+	height: .74em;
+	margin: 0 .025em;
+	border-radius: 50%;
+	background: var(--yolk);
+	overflow: hidden;
+	animation: blink 4.2s infinite;
+}
+
+.eye + .eye { animation-delay: .02s; }
+
+.pupil {
+	position: absolute;
+	top: 27%;
+	left: 27%;
+	width: 46%;
+	height: 46%;
+	border-radius: 50%;
+	background: var(--bg);
+	animation: look 3.2s var(--ease) infinite;
+}
+
+.pupil::after {
+	content: "";
+	position: absolute;
+	top: 16%;
+	left: 18%;
+	width: 26%;
+	height: 26%;
+	border-radius: 50%;
+	background: var(--text);
+}
+
+.cover {
+	width: clamp(110px, 30vh, 220px);
+	aspect-ratio: 1;
+	border-radius: 22%;
+	object-fit: cover;
+	box-shadow: 0 0 0 1px var(--line), 0 30px 70px -20px rgba(255, 198, 41, .35);
+	animation: bob 2.4s ease-in-out infinite;
+}
+
+.title {
+	margin: 0;
+	font-family: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+	font-weight: 800;
+	font-size: clamp(22px, 4.6vh, 36px);
+	letter-spacing: -.025em;
+	text-align: center;
+}
+
+.loader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	width: min(340px, 80vw);
+}
+
+.bar {
+	width: 100%;
+	height: 10px;
+	overflow: hidden;
+	border-radius: 999px;
+	background: var(--panel);
+	box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.fill {
+	width: 0;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--yolk);
+	transition: width .25s ease;
+}
+
+.bar.waiting .fill {
+	width: 30%;
+	animation: slide 1.1s ease-in-out infinite;
+}
+
+.label {
+	color: var(--muted);
+	font-size: 14px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+#status-notice {
+	display: none;
+	max-width: 30em;
+	padding: 14px 18px;
+	border: 1px solid #9b3943;
+	border-radius: 12px;
+	background: #3a1f24;
+	color: #f3dcdc;
+	font-size: 15px;
+	line-height: 1.4;
+	text-align: center;
+}
+
+#status.failed .loader { display: none; }
+#status.failed #status-notice { display: block; }
+
+@keyframes look {
+	0%, 18% { transform: translate(-30%, 10%); }
+	30%, 55% { transform: translate(30%, 10%); }
+	68%, 100% { transform: translate(-30%, 10%); }
+}
+
+@keyframes blink {
+	0%, 92%, 100% { transform: none; }
+	95% { transform: scaleY(.08); }
+}
+
+@keyframes bob {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-6px); }
+}
+
+@keyframes slide {
+	from { transform: translateX(-100%); }
+	to { transform: translateX(340%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation: none !important; transition: none !important; }
+}
+		</style>
+		$GODOT_HEAD_INCLUDE
+	</head>
+	<body>
+		<canvas id="canvas">
+			Your browser does not support the canvas tag.
+		</canvas>
+
+		<noscript>
+			Your browser does not support JavaScript.
+		</noscript>
+
+		<div id="status">
+			<p class="wordmark" aria-label="Game Coop">
+				<span aria-hidden="true">GAME</span>
+				<span class="coop" aria-hidden="true">C<span class="eye"><span class="pupil"></span></span><span class="eye"><span class="pupil"></span></span>P</span>
+			</p>
+			<img class="cover" src="index.icon.png" alt="" onerror="this.remove()">
+			<h1 class="title">$GODOT_PROJECT_NAME</h1>
+			<div class="loader" role="status" aria-live="polite">
+				<div class="bar waiting" id="status-bar"><div class="fill" id="status-fill"></div></div>
+				<span class="label" id="status-label">Hatching…</span>
+			</div>
+			<div id="status-notice"></div>
+		</div>
+
+		<script src="$GODOT_URL"></script>
+		<script>
+const GODOT_CONFIG = $GODOT_CONFIG;
+const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
+const engine = new Engine(GODOT_CONFIG);
+
+(function () {
+	const statusOverlay = document.getElementById('status');
+	const statusBar = document.getElementById('status-bar');
+	const statusFill = document.getElementById('status-fill');
+	const statusLabel = document.getElementById('status-label');
+	const statusNotice = document.getElementById('status-notice');
+
+	let initializing = true;
+
+	function showLoading() {
+		statusOverlay.style.visibility = 'visible';
+	}
+
+	function hideLoading() {
+		initializing = false;
+		statusFill.style.width = '100%';
+		statusLabel.textContent = 'Hatched!';
+		statusOverlay.classList.add('done');
+		setTimeout(() => statusOverlay.remove(), 500);
+	}
+
+	function setStatusNotice(text) {
+		while (statusNotice.lastChild) {
+			statusNotice.removeChild(statusNotice.lastChild);
+		}
+		text.split('\n').forEach((line) => {
+			statusNotice.appendChild(document.createTextNode(line));
+			statusNotice.appendChild(document.createElement('br'));
+		});
+	}
+
+	function displayFailureNotice(err) {
+		console.error(err);
+		if (err instanceof Error) {
+			setStatusNotice(err.message);
+		} else if (typeof err === 'string') {
+			setStatusNotice(err);
+		} else {
+			setStatusNotice('Something went wrong loading the game. Try reloading the page.');
+		}
+		statusOverlay.style.visibility = 'visible';
+		statusOverlay.classList.add('failed');
+		initializing = false;
+	}
+
+	const missing = Engine.getMissingFeatures({
+		threads: GODOT_THREADS_ENABLED,
+	});
+
+	if (missing.length !== 0) {
+		displayFailureNotice('This browser can\'t run the game. It is missing:\n' + missing.join('\n'));
+		return;
+	}
+
+	showLoading();
+	engine.startGame({
+		'onProgress': function (current, total) {
+			if (!initializing) {
+				return;
+			}
+			if (current > 0 && total > 0) {
+				const percent = Math.min(100, Math.round((current / total) * 100));
+				statusBar.classList.remove('waiting');
+				statusFill.style.width = percent + '%';
+				statusLabel.textContent = 'Hatching… ' + percent + '%';
+			} else {
+				statusBar.classList.add('waiting');
+			}
+		},
+	}).then(hideLoading, displayFailureNotice);
+}());
+		</script>
+	</body>
+</html>
