@@ -68,13 +68,14 @@ body {
 
 .wordmark {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   gap: 0 .2em;
   margin: 0;
   font-family: var(--display);
   font-weight: 800;
-  font-size: min(14.4vw, 196px);
+  flex-wrap: nowrap;
+  align-items: center;
+  font-size: min(12.4vw, 176px);
   line-height: .95;
   letter-spacing: -.045em;
   animation: rise .8s var(--ease) both;
@@ -83,6 +84,42 @@ body {
 .coop {
   display: inline-flex;
   align-items: center;
+}
+
+/* The mascot: a cool chicken in sunglasses between GAME and COOP. It leans toward the cursor. */
+.mascot {
+  flex: none;
+  width: auto;
+  height: 1.24em;
+  margin: -.2em 0 -.04em;
+  overflow: visible;
+  transform: rotate(var(--lean, -5deg));
+  transform-origin: 50% 90%;
+  transition: transform .4s var(--ease);
+  cursor: pointer;
+}
+
+.mascot .chick {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.mascot:hover .chick { animation: strut .5s ease-in-out 2; }
+
+.mascot .glint {
+  transform-box: view-box;
+  animation: glint 4.5s 1.2s ease-in-out infinite;
+}
+
+@keyframes strut {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  30% { transform: translateY(-6%) rotate(-6deg); }
+  70% { transform: translateY(-6%) rotate(6deg); }
+}
+
+@keyframes glint {
+  0%, 70% { transform: translateX(-40px); }
+  85%, 100% { transform: translateX(90px); }
 }
 
 .eye {

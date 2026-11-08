@@ -20,6 +20,41 @@
   <header class="hero">
     <h1 class="wordmark" aria-label="Game Coop">
       <span aria-hidden="true">GAME</span>
+      <svg class="mascot" viewBox="0 0 120 132" aria-hidden="true">
+        <defs>
+          <clipPath id="lens-clip">
+            <rect x="17" y="46" width="40" height="28" rx="11"/>
+            <rect x="63" y="46" width="40" height="28" rx="11"/>
+          </clipPath>
+        </defs>
+        <g class="chick">
+          <!-- comb -->
+          <circle cx="47" cy="22" r="10" fill="#ef3f3a"/>
+          <circle cx="60" cy="15" r="12" fill="#ef3f3a"/>
+          <circle cx="73" cy="22" r="10" fill="#ef3f3a"/>
+          <!-- wings -->
+          <path d="M14 82 C2 88 2 104 12 110 C18 104 20 94 18 84Z" fill="#e2d9c3"/>
+          <path d="M106 82 C118 88 118 104 108 110 C102 104 100 94 102 84Z" fill="#e2d9c3"/>
+          <!-- body -->
+          <path d="M60 22 C92 22 108 50 108 84 C108 114 88 128 60 128 C32 128 12 114 12 84 C12 50 28 22 60 22Z" fill="#f6f0e1"/>
+          <!-- cheeks -->
+          <circle cx="28" cy="88" r="6" fill="#f59ac4" opacity=".55"/>
+          <circle cx="92" cy="88" r="6" fill="#f59ac4" opacity=".55"/>
+          <!-- sunglasses -->
+          <path d="M8 54 L18 56 M102 56 L112 54" stroke="#0f0e0b" stroke-width="4" stroke-linecap="round"/>
+          <rect x="54" y="53" width="12" height="6" rx="3" fill="#0f0e0b"/>
+          <rect x="17" y="46" width="40" height="28" rx="11" fill="#0f0e0b"/>
+          <rect x="63" y="46" width="40" height="28" rx="11" fill="#0f0e0b"/>
+          <g clip-path="url(#lens-clip)">
+            <path class="glint" d="M14 80 L32 40 L42 40 L24 80Z M28 80 L46 40 L50 40 L32 80Z" fill="#fff" opacity=".7"/>
+          </g>
+          <!-- beak -->
+          <path d="M47 82 L60 76 L73 82 L60 86Z" fill="#ffc629"/>
+          <path d="M47 82 L60 86 L73 82 L60 95Z" fill="#ff9f1c"/>
+          <!-- wattle -->
+          <ellipse cx="60" cy="102" rx="5" ry="8" fill="#ef3f3a"/>
+        </g>
+      </svg>
       <span class="coop" aria-hidden="true">C<span class="eye"><span class="pupil"></span></span><span class="eye"><span class="pupil"></span></span>P</span>
     </h1>
     <p class="tagline"><span id="game-count"></span> games for Mac, still in the nest. Downloads open as each one hatches.</p>

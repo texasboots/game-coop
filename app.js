@@ -200,7 +200,13 @@ const eyes = [...document.querySelectorAll(".eye")];
 let pointer = null;
 let frame = 0;
 
+const mascot = document.querySelector(".mascot");
+
 function lookAt(x, y) {
+  const box = mascot.getBoundingClientRect();
+  const lean = Math.max(-1, Math.min(1, (x - (box.left + box.width / 2)) / (innerWidth / 2)));
+  mascot.style.setProperty("--lean", lean * 10 + "deg");
+
   for (const eye of eyes) {
     const box = eye.getBoundingClientRect();
     const dx = x - (box.left + box.width / 2);
