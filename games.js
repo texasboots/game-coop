@@ -23,9 +23,10 @@ const GAMES = [
     title: "Vietnam War",
     genre: "Historical",
     players: "1–4 players",
-    blurb: "Jump off the helicopter and fight your way up through the jungle.",
+    blurb: "Five stages: jungle trails, motorcycles, a rainy night mission, rice paddies and a water buffalo ride.",
     cover: "covers/vietnam-war.png",
     color: "#f08a3c",
+    play: "play/vietnam-war/index.html",
     download: null,
   },
   {
