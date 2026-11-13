@@ -91,6 +91,16 @@ const GAMES = [
     download: null,
   },
   {
+    id: "prehistoric-planet",
+    title: "Prehistoric Planet",
+    genre: "Adventure",
+    players: "1–2 players",
+    blurb: "Survive a 3D Stone Age island: craft spears and axes, dodge saber-tooths and meet woolly mammoths.",
+    cover: "covers/prehistoric-planet.png",
+    color: "#c9864a",
+    download: null,
+  },
+  {
     id: "doom-dogs",
     title: "Doom Dogs",
     genre: "Horror",
