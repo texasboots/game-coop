@@ -87,6 +87,7 @@ const GAMES = [
     blurb: "A cartoon snake eats fruit, grabs crazy power-ups and dodges falling rocks.",
     cover: "covers/snake-2.png",
     color: "#5ad35f",
+    play: "play/snake-2/index.html",
     download: null,
   },
   {
