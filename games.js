@@ -120,6 +120,7 @@ const GAMES = [
     cover: "covers/lights-out-arcade.png",
     color: "#c9302c",
     flashlight: true,
+    play: "play/lights-out-arcade/index.html",
     download: null,
   },
 ];
