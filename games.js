@@ -19,6 +19,17 @@ const GAMES = [
     download: null,
   },
   {
+    id: "alamo-3d",
+    title: "Alamo 3D",
+    genre: "Historical",
+    players: "1–2 players",
+    blurb: "Walk the Alamo in 3D or VR, then defend it in 1836: ladders, a battering ram and a siege cannon.",
+    cover: "covers/alamo-3d.png",
+    fullArt: true,
+    color: "#e0a050",
+    download: null,
+  },
+  {
     id: "vietnam-war",
     title: "Vietnam War",
     genre: "Historical",
